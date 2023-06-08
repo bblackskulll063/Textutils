@@ -1,53 +1,64 @@
-import "./App.css";
+import React, { useState } from "react";
+import Navbar from "./components/navbar";
+import Text from "./components/text";
+import About from "./components/About";
+import Alert from "./components/Alert";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 function App() {
-  return (
-    <div>
-      <nav className="navbar navbar-expand-lg bg-dark " data-bs-theme="dark">
-        <div className="container-fluid">
-          <a className="navbar-brand" href="/">
-            MY-APP
-          </a>
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span className="navbar-toggler-icon"></span>
-          </button>
-          <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-              <li className="nav-item">
-                <a className="nav-link active" aria-current="page" href="/">
-                  Home
-                </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="/">
-                  Link
-                </a>
-              </li>
-            </ul>
+  const [mode, setmode] = useState("light");
+  const [alert, setAlert] = useState(null);
 
-            <form className="d-flex" role="search">
-              <input
-                className="form-control me-2"
-                type="search"
-                placeholder="Search"
-                aria-label="Search"
-              />
-              <button className="btn btn-outline-success" type="submit">
-                Search
-              </button>
-            </form>
-          </div>
-        </div>
-      </nav>
+  function showAlert(message, type) {
+    setAlert({
+      msg: message,
+      type: type,
+    });
+    setTimeout(() => {
+      setAlert(null);
+    }, 1500);
+  }
+
+  function changeMode() {
+    if (mode === "light") {
+      setmode("dark");
+      document.body.style.background = "#011923";
+      showAlert("Dark Mode is enable successfully", "success");
+    } else {
+      setmode("light");
+      document.body.style.background = "white";
+      showAlert("Light Mode is enable successfully", "success");
+    }
+    // setInterval(() => {
+    //   document.title = "MyTextutils";
+    // }, 1500);
+    // setInterval(() => {
+    //   document.title = "Great Website";
+    // }, 3000);
+  }
+
+  return (
+    <Router>
+    <div>
+      <Navbar title="MY-APP" mode={mode} changemode={changeMode} />
+      <Alert alert={alert} />
+
+      <div className="my-2">
+        <Switch>
+          <Route exact path="/about">
+            <About mode={mode} />
+          </Route>
+          <Route exact path="/">
+            <Text
+              showAlert={showAlert}
+              heading="Enter the text to analyze"
+              mode={mode}
+            />
+          </Route>
+        </Switch>
+      </div>
     </div>
+    // </Router> 
   );
 }
 
