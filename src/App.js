@@ -39,7 +39,6 @@ function App() {
 
   return (
     <Router>
-    <div>
       <Navbar title="MY-APP" mode={mode} changemode={changeMode} />
       <Alert alert={alert} />
 
@@ -57,8 +56,8 @@ function App() {
           </Route>
         </Switch>
       </div>
-    </div>
-    // </Router> 
+
+    </Router> 
   );
 }
 
