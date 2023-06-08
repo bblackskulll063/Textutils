@@ -42,7 +42,7 @@ function App() {
       <Navbar title="MY-APP" mode={mode} changemode={changeMode} />
       <Alert alert={alert} />
 
-      <div className="my-2">
+      {/* <div className="my-2"> */}
         <Switch>
           <Route exact path="/about">
             <About mode={mode} />
@@ -55,7 +55,7 @@ function App() {
             />
           </Route>
         </Switch>
-      </div>
+      {/* </div> */}
 
     </Router> 
   );
